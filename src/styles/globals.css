@@ -1,0 +1,221 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Generate Streamdown's markdown utility classes so agent replies render
+   formatting (bold, headings, lists, code). */
+@source "../../node_modules/streamdown/dist/index.js";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --color-cream-canvas: var(--cream-canvas);
+    --color-cream-lifted: var(--cream-lifted);
+    --color-bone: var(--bone);
+    --color-sand: var(--sand);
+    --color-ink: var(--ink);
+    --color-slate: var(--slate);
+    --color-granite: var(--granite);
+    --color-taupe: var(--taupe);
+    --color-teal-600: var(--teal-600);
+    --color-teal-500: var(--teal-500);
+    --color-teal-100: var(--teal-100);
+    --color-ember-600: var(--ember-600);
+    --color-signal: var(--signal);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-danger: var(--danger);
+    --color-link: var(--link);
+    --color-mist: var(--mist);
+    --color-mist-soft: var(--mist-soft);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    /* ---- Black & Olive Theme (Dark surfaces) ----------------- */
+    --cream-canvas: #09090b; /* Base dark background */
+    --cream-lifted: #121212; /* Cards/Sidebar background */
+    --white:        #18181b; /* Elevated surfaces / Popover */
+    --bone:         #27272a; /* Secondary surfaces */
+    --sand:         #27272a; /* Hover surfaces */
+    --sand-deep:    #3f3f46; /* Active surfaces */
+
+    /* ---- Ink & neutrals (Text & borders) ---------------------- */
+    --ink:         #fafafa; /* Primary text */
+    --charcoal:    #f4f4f5; 
+    --slate:       #a1a1aa; /* Secondary text */
+    --granite:     #71717a; /* Muted text */
+    --taupe:       #52525b; /* Disabled text */
+    --mist:        #27272a; /* Default border */
+    --mist-soft:   #18181b; /* Subtle border */
+    --mist-strong: #3f3f46; /* Strong border / Input */
+
+    /* ---- Brand: Olive (Replacing Teal/Orange) ----------------------- */
+    --teal-900: #f4f7ef;
+    --teal-700: #4e5d32; /* Olive 700 - Press */
+    --teal-600: #6e853b; /* Olive 600 - Primary Accent */
+    --teal-500: #849e47; /* Olive 500 - Hover */
+    --teal-200: #b5c789;
+    --teal-100: #bbc6a18a;
+    --teal-50:  #202613; /* Dark olive tint */
+
+    /* ---- Accent: Ember (Signal) ------------------------------- */
+    --ember-700: #b91c1c;
+    --ember-600: #dc2626;
+    --ember-500: #ef4444;
+    --ember-100: #450a0a;
+    --ember-50:  #2e0404;
+
+    /* ---- Category hues (calendar events & labels) ------------- */
+    --cat-marine: #6e853b;  --cat-marine-tint: #202613;
+    --cat-gold:   #f59e0b;  --cat-gold-tint:   #452906;
+    --cat-clay:   #f97316;  --cat-clay-tint:   #431407;
+    --cat-plum:   #d946ef;  --cat-plum-tint:   #4a1555;
+    --cat-sage:   #22c55e;  --cat-sage-tint:   #0b3b1c;
+    --cat-slate:  #64748b;  --cat-slate-tint:  #1e293b;
+
+    /* ---- Semantic ---------------------------------------------- */
+    --success: #22c55e;  --success-tint: #0b3b1c;
+    --warning: #f59e0b;  --warning-tint: #452906;
+    --danger:  #ef4444;  --danger-tint:  #450a0a;
+    --info:    #6e853b;  --info-tint:    #202613;
+    --link:    #849e47;
+
+    /* ---- Corsair semantic aliases ----------------------------- */
+    --bg-canvas:   var(--cream-canvas);
+    --bg-surface:  var(--cream-lifted);
+    --bg-raised:   var(--white);
+    --bg-sunken:   var(--bone);
+    --bg-hover:    var(--sand);
+    --bg-active:   var(--sand-deep);
+
+    --text-primary:   var(--ink);
+    --text-secondary: var(--slate);
+    --text-muted:     var(--granite);
+    --text-disabled:  var(--taupe);
+    --text-inverse:   #0d1205;
+    --text-link:      var(--link);
+
+    --border-subtle:  var(--mist-soft);
+    --border-default: var(--mist);
+    --border-strong:  var(--mist-strong);
+
+    --brand:        var(--teal-600);
+    --brand-hover:  var(--teal-500);
+    --brand-press:  var(--teal-700);
+    --brand-fg:     var(--text-inverse);
+    --brand-tint:   var(--teal-50);
+    --accent-hover: var(--teal-500);
+    --accent-press: var(--teal-700);
+    --accent-fg:    var(--text-inverse);
+    --accent-tint:  var(--teal-50);
+    --signal:       var(--ember-600);
+    --signal-tint:  var(--ember-100);
+
+    --focus-ring: 0 0 0 3px color-mix(in srgb, var(--teal-600) 40%, transparent);
+
+    /* ---- shadcn/ui (dark theme) ------------------------------ */
+    --background:           var(--bg-canvas);
+    --foreground:           var(--text-primary);
+
+    --card:                 var(--bg-surface);
+    --card-foreground:      var(--text-primary);
+
+    --popover:              var(--bg-raised);
+    --popover-foreground:   var(--text-primary);
+
+    --primary:              var(--brand);
+    --primary-foreground:   var(--brand-fg);
+
+    --secondary:            var(--bone);
+    --secondary-foreground: var(--text-primary);
+
+    --muted:                var(--bg-sunken);
+    --muted-foreground:     var(--text-secondary);
+
+    --accent:               var(--sand);
+    --accent-foreground:    var(--text-primary);
+
+    --destructive:          var(--danger);
+
+    --border:               var(--border-default);
+    --input:                var(--border-strong);
+    --ring:                 var(--teal-600);
+
+    --chart-1: var(--cat-marine);
+    --chart-2: var(--cat-gold);
+    --chart-3: var(--cat-clay);
+    --chart-4: var(--cat-plum);
+    --chart-5: var(--cat-sage);
+
+    --sidebar:                    var(--bg-surface);
+    --sidebar-foreground:         var(--text-primary);
+    --sidebar-primary:            var(--brand);
+    --sidebar-primary-foreground: var(--brand-fg);
+    --sidebar-accent:             var(--bg-hover);
+    --sidebar-accent-foreground:  var(--text-primary);
+    --sidebar-border:               var(--border-subtle);
+    --sidebar-ring:                 var(--teal-600);
+
+    --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans;
+    }
+}
+
+@keyframes task-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}

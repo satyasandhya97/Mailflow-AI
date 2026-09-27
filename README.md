@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center"> 
   <h1>Mailflow AI</h1>
   <p>Your email, calendar, and AI agents in one clean, powerful workspace.</p>
 </div>

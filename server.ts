@@ -31,11 +31,6 @@ const server = createServer(async (req, res) => {
 
 attachGmailRealtimeWebSocket(server);
 
-const { startTaskScheduler } = await import(
-  "./src/server/services/task-scheduler.service"
-);
-startTaskScheduler();
-
 server.listen(port, () => {
   console.info(
     `[server] ready on http://${hostname}:${port} (unified ws: ws://${hostname}:${port}/api/ws/gmail)`,

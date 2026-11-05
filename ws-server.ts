@@ -4,10 +4,10 @@ import { createServer, type IncomingMessage } from "node:http";
 import { parse as parseUrl } from "node:url";
 
 import { env } from "@/env";
-import { GMAIL_WS_PATH } from "@/features/gmail/lib/gmail-realtime.constants";
 import {
   attachGmailRealtimeWebSocket,
   getGmailRealtimeHub,
+  GMAIL_WS_PATH,
 } from "@/server/ws/gmail-realtime-hub";
 
 const port = Number(process.env.GMAIL_WS_PORT ?? 3001);

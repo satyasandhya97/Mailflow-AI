@@ -65,7 +65,7 @@ export function AgentModelSelector({
             type="button"
             variant="ghost"
             disabled={disabled}
-            className="h-8 max-w-[11rem] gap-2 rounded-full bg-muted/50 px-3 text-xs font-normal text-foreground shadow-none hover:bg-muted/70 data-popup-open:bg-muted/70"
+            className="h-8 max-w-[12rem] gap-2 rounded-full bg-background/90 hover:bg-background border border-border/70 px-3 text-xs font-medium text-foreground shadow-xs hover:text-foreground data-popup-open:bg-background transition-colors"
           />
         }
       >

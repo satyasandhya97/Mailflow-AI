@@ -16,14 +16,6 @@ export const PLUGIN_CATALOG: PluginCatalogItem[] = [
     categoryDotClass: "bg-[var(--cat-marine)]",
     iconBgClass: "bg-[var(--cat-marine-tint)] text-[var(--cat-marine)]",
     icon: Mail,
-    nav: {
-      title: "Gmail",
-      href: "/gmail/inbox",
-      icon: Mail,
-      showInSidebar: true,
-      sidebarOrder: 1,
-      badge: 3,
-    },
   },
   {
     id: "googlecalendar",
@@ -35,13 +27,6 @@ export const PLUGIN_CATALOG: PluginCatalogItem[] = [
     categoryDotClass: "bg-[var(--cat-gold)]",
     iconBgClass: "bg-[var(--cat-gold-tint)] text-[var(--cat-gold)]",
     icon: Calendar,
-    nav: {
-      title: "Google Calendar",
-      href: "/calendar",
-      icon: Calendar,
-      showInSidebar: true,
-      sidebarOrder: 2,
-    },
   },
 ];
 

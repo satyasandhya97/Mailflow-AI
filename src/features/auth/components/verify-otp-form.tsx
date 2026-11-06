@@ -136,7 +136,7 @@ export function VerifyOtpForm({ email, flow }: VerifyOtpFormProps) {
           ? "Account verified — logging you in…"
           : "Logged in successfully",
       );
-      window.location.assign("/dashboard");
+      window.location.assign("/agent");
     } finally {
       setIsVerifying(false);
     }

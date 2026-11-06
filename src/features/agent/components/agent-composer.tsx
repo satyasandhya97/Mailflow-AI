@@ -34,15 +34,18 @@ const inputShellClassName = cn(
   "[&_[data-slot=input-group]]:h-auto",
   "[&_[data-slot=input-group]]:flex-col",
   "[&_[data-slot=input-group]]:items-stretch",
-  "[&_[data-slot=input-group]]:rounded-[1.25rem]",
-  "[&_[data-slot=input-group]]:border-border/50",
-  "[&_[data-slot=input-group]]:bg-background",
-  "[&_[data-slot=input-group]]:shadow-sm",
-  "[&_[data-slot=input-group]]:transition-[box-shadow,border-color]",
-  "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:border-[var(--teal-700)]/25",
-  "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:shadow-md",
+  "[&_[data-slot=input-group]]:rounded-2xl",
+  "[&_[data-slot=input-group]]:border",
+  "[&_[data-slot=input-group]]:border-border/70",
+  "[&_[data-slot=input-group]]:bg-[#18181b]",
+  "[&_[data-slot=input-group]]:shadow-lg",
+  "[&_[data-slot=input-group]]:shadow-black/25",
+  "[&_[data-slot=input-group]]:overflow-hidden",
+  "[&_[data-slot=input-group]]:transition-all",
+  "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:border-[var(--teal-600)]/60",
+  "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:shadow-xl",
   "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:ring-2",
-  "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:ring-[var(--teal-100)]",
+  "[&_[data-slot=input-group]:has([data-slot=input-group-control]:focus-visible)]:ring-[var(--teal-600)]/20",
 );
 
 export function AgentComposer({
@@ -67,25 +70,27 @@ export function AgentComposer({
           onSubmit(text);
         }}
       >
-        <PromptInputBody>
-          <PromptInputTextarea
-            placeholder="Ask the agent to email or schedule…"
-            disabled={disabled}
-            className={cn(
-              "min-h-16 resize-none border-0 bg-transparent px-4 py-3.5 text-sm leading-relaxed shadow-none",
-              "placeholder:text-muted-foreground/70",
-              "focus-visible:ring-0",
-            )}
-          />
-        </PromptInputBody>
+        <div className="bg-[#18181b] px-4 pt-3.5 pb-2">
+          <PromptInputBody>
+            <PromptInputTextarea
+              placeholder="Ask the agent to email or schedule…"
+              disabled={disabled}
+              className={cn(
+                "min-h-16 resize-none border-0 bg-transparent p-0 text-sm leading-relaxed shadow-none text-foreground",
+                "placeholder:text-muted-foreground/65",
+                "focus-visible:ring-0",
+              )}
+            />
+          </PromptInputBody>
+        </div>
 
-        <PromptInputFooter className="bg-muted/15 px-3 py-1">
-          <PromptInputTools className="flex min-w-0 flex-1 items-center">
+        <PromptInputFooter className="bg-[#242429] border-t border-border/50 px-3.5 py-2.5 flex items-center justify-between">
+          <PromptInputTools className="flex min-w-0 flex-1 items-center gap-1.5">
             <PromptInputActionMenu>
               <PromptInputActionMenuTrigger
                 aria-label="Add attachments"
                 variant="ghost"
-                className="size-8 rounded-full text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                className="size-8 rounded-full bg-background/60 hover:bg-background border border-border/40 text-muted-foreground hover:text-foreground transition-colors"
               />
               <PromptInputActionMenuContent>
                 <PromptInputActionAddAttachments />
@@ -105,14 +110,16 @@ export function AgentComposer({
               onStop={onStop}
               disabled={disabled}
               className={cn(
-                "size-9 shrink-0 rounded-full shadow-none",
-                !isGenerating && "bg-primary text-primary-foreground hover:bg-primary/90",
+                "size-8.5 shrink-0 rounded-full shadow-xs font-semibold transition-all hover:scale-105 active:scale-95",
+                !isGenerating
+                  ? "bg-[var(--teal-600)] text-[#0d1205] hover:bg-[var(--teal-500)]"
+                  : "bg-destructive text-destructive-foreground hover:bg-destructive/90",
               )}
             >
               {isGenerating ? (
                 <Square className="size-3.5 fill-current" />
               ) : (
-                <ArrowUp className="size-4" />
+                <ArrowUp className="size-4 stroke-[2.5]" />
               )}
             </PromptInputSubmit>
           </div>

@@ -1,3 +1,0 @@
-export const GMAIL_LIST_STALE_MS = 60_000;
-export const GMAIL_LABELS_STALE_MS = 120_000;
-export const GMAIL_MESSAGE_STALE_MS = 30_000;

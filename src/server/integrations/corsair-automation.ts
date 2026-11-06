@@ -1,6 +1,5 @@
 import { env } from "@/env";
 import { getTenantForUser } from "@/server/integrations/tenant";
-import { runEventTriggeredTasks } from "@/server/services/task-event-trigger.service";
 import { syncGoogleCalendarEvents } from "@/server/services/calendar-sync.service";
 import { broadcastCalendarEventsUpdated } from "@/server/ws/calendar-realtime-broadcast";
 import { syncGmailInbox } from "@/server/services/gmail-sync.service";
@@ -67,35 +66,6 @@ export async function handleGmailMessageChangedWebhook(
   await runEmailSchedulingAutomations(tenantId, response).catch((error) => {
     console.warn("[automation/gmail] scheduling automations failed:", error);
   });
-
-  await runGmailEventTriggeredTasks(tenantId, response).catch((error) => {
-    console.warn("[automation/gmail] event-triggered tasks failed:", error);
-  });
-}
-
-/** Fire user-defined Gmail event tasks when a new message arrives. */
-export async function runGmailEventTriggeredTasks(
-  tenantId: string,
-  response: unknown,
-): Promise<void> {
-  const record = (response ?? {}) as { type?: string };
-  if (record.type && record.type !== "messageReceived") return;
-
-  const tenant = getTenantForUser(tenantId);
-  const messages = await tenant.gmail.db.messages.list({ limit: 5 });
-
-  const latest = messages
-    .map((message) => ({
-      message,
-      date: Date.parse(String(message.data?.internalDate ?? "")),
-    }))
-    .sort((a, b) => b.date - a.date)[0]?.message;
-
-  const data = (latest?.data ?? {}) as Record<string, unknown>;
-  const from = typeof data.from === 'string' ? data.from : (typeof data.sender === 'string' ? data.sender : "");
-  const subject = typeof data.subject === 'string' ? data.subject : "";
-
-  await runEventTriggeredTasks(tenantId, "gmail", { from, subject });
 }
 
 export async function handleCalendarEventChangedWebhook(
@@ -112,10 +82,6 @@ export async function handleCalendarEventChangedWebhook(
 
   await runCalendarReminderAutomations(tenantId).catch((error) => {
     console.warn("[automation/calendar] reminder automations failed:", error);
-  });
-
-  await runEventTriggeredTasks(tenantId, "calendar", {}).catch((error) => {
-    console.warn("[automation/calendar] event-triggered tasks failed:", error);
   });
 }
 

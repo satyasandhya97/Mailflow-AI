@@ -20,22 +20,6 @@ const HIDDEN_TOOL_NAMES = new Set([
   "send_gmail_email",
   "schedule_gmail_email",
   "corsair_setup",
-  "list_workspace_tasks",
-  "get_workspace_task",
-  "prepare_task_draft",
-  "create_workspace_task",
-  "update_workspace_task",
-  "update_workspace_task_status",
-  "preview_task_next_run",
-  "run_workspace_task",
-]);
-
-const TASK_MUTATION_TOOL_NAMES = new Set([
-  "create_workspace_task",
-  "update_workspace_task",
-  "update_workspace_task_status",
-  "delete_workspace_task",
-  "run_workspace_task",
 ]);
 
 export function getToolDisplayName(part: {
@@ -104,20 +88,6 @@ export function getToolApprovalCopy(approval: PendingToolApproval): {
   confirmLabel: string;
   cancelLabel: string;
 } {
-  if (approval.toolName === "delete_workspace_task") {
-    const taskId =
-      typeof approval.input.taskId === "string"
-        ? approval.input.taskId
-        : "this task";
-
-    return {
-      title: "Delete this task?",
-      description: `Task ${taskId} will be permanently removed. This cannot be undone.`,
-      confirmLabel: "Confirm Delete",
-      cancelLabel: "Cancel",
-    };
-  }
-
   return {
     title: "Approve this action?",
     description: "The agent is waiting for your confirmation.",
@@ -200,21 +170,6 @@ export function messagesTouchGmailList(messages: UIMessage[]): boolean {
       const name = getToolDisplayName(part);
 
       if (GMAIL_LIST_TOOL_NAMES.has(name)) return true;
-    }
-  }
-
-  return false;
-}
-
-export function messagesTouchTaskMutation(messages: UIMessage[]): boolean {
-  for (const message of messages) {
-    for (const part of message.parts) {
-      if (!isToolUIPart(part)) continue;
-      if (part.state !== "output-available") continue;
-
-      const name = getToolDisplayName(part);
-
-      if (TASK_MUTATION_TOOL_NAMES.has(name)) return true;
     }
   }
 

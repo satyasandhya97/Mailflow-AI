@@ -5,9 +5,7 @@ import { WebSocket, WebSocketServer } from "ws";
 
 import { getSessionTokenFromHeader } from "@/server/auth/parse-session-cookie";
 import { resolveSessionFromToken } from "@/server/auth/resolve-session";
-import { GMAIL_WS_PATH } from "@/features/gmail/lib/gmail-realtime.constants";
-
-export { GMAIL_WS_PATH };
+export const GMAIL_WS_PATH = "/api/ws/gmail";
 
 export type GmailRealtimeEvent = {
   type: "gmail.inbox.updated";

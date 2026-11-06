@@ -26,7 +26,6 @@ import {
   messagesTouchCalendarMutation,
   messagesTouchGmailList,
   messagesTouchGmailMutation,
-  messagesTouchTaskMutation,
 } from "@/features/agent/lib/agent-tool-ui";
 import {
   getTypingIndicatorLabel,
@@ -69,7 +68,6 @@ export function AgentChatSession({
   const utils = api.useUtils();
   const lastCalendarInvalidateKeyRef = useRef("");
   const lastGmailInvalidateKeyRef = useRef("");
-  const lastTaskInvalidateKeyRef = useRef("");
 
   const transport = useMemo(
     () =>
@@ -148,19 +146,6 @@ export function AgentChatSession({
     lastGmailInvalidateKeyRef.current = turnKey;
     void utils.gmail.listSent.invalidate();
     void utils.gmail.searchEmails.invalidate();
-  }, [conversationId, messages, status, utils]);
-
-  useEffect(() => {
-    if (status === "submitted" || status === "streaming") return;
-    if (!messagesTouchTaskMutation(messages)) return;
-
-    const turnKey = `${conversationId}:${messages.length}:${messages.at(-1)?.id ?? ""}`;
-    if (turnKey === lastTaskInvalidateKeyRef.current) return;
-
-    lastTaskInvalidateKeyRef.current = turnKey;
-    void utils.tasks.listBoard.invalidate();
-    void utils.tasks.countActive.invalidate();
-    void utils.tasks.listLabels.invalidate();
   }, [conversationId, messages, status, utils]);
 
   useEffect(() => {

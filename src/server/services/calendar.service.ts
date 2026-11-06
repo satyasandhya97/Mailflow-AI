@@ -1,8 +1,25 @@
+export type MappedCalendarEvent = {
+  id: string;
+  summary: string;
+  description: string;
+  location: string;
+  status: string;
+  start: string;
+  end: string;
+  attendees: string[];
+  htmlLink: string;
+  createdAt: Date | null;
+  timestamp: number;
+};
+
+export type CalendarListItem = {
+  id: string;
+  summary: string;
+  primary: boolean;
+  backgroundColor: string;
+};
+
 import { getTenantForUser } from "@/server/integrations/tenant";
-import type {
-  CalendarListItem,
-  MappedCalendarEvent,
-} from "@/features/calendar/types";
 import { syncGoogleCalendarEvents } from "@/server/services/calendar-sync.service";
 import { dedupeByEntityId } from "@/server/services/utils";
 

@@ -2,27 +2,16 @@
 
 import { AlertCircle, RefreshCw } from "lucide-react";
 
-import { AgentShellSidebar } from "@/features/agent/components/agent-shell-sidebar";
 import { AgentShellLayoutSkeleton } from "@/features/agent/components/skeletons";
 import { Button } from "@/components/ui/button";
 import { useAgentConversationsContext } from "@/features/agent/context/agent-conversations-provider";
 
 export function AgentShellLayout({ children }: { children: React.ReactNode }) {
-  const {
-    conversations,
-    activeId,
-    isHydrated,
-    loadError,
-    retryLoad,
-    createConversation,
-    selectConversation,
-    deleteConversation,
-    renameConversation,
-  } = useAgentConversationsContext();
+  const { isHydrated, loadError, retryLoad } = useAgentConversationsContext();
 
   if (!isHydrated) {
     return (
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col p-2 md:p-4">
         <AgentShellLayoutSkeleton />
       </div>
     );
@@ -30,7 +19,7 @@ export function AgentShellLayout({ children }: { children: React.ReactNode }) {
 
   if (loadError) {
     return (
-      <div className="flex min-h-0 flex-1 flex-col px-4 pb-4">
+      <div className="flex min-h-0 flex-1 flex-col p-4">
         <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center">
           <AlertCircle className="size-10 text-destructive" />
           <div className="max-w-md space-y-2">
@@ -52,27 +41,10 @@ export function AgentShellLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex min-h-0 flex-1 gap-4 overflow-hidden px-4 pb-4">
-        <AgentShellSidebar
-          conversations={conversations}
-          activeId={activeId}
-          onSelect={selectConversation}
-          onCreate={() => {
-            void createConversation();
-          }}
-          onDelete={(id) => {
-            void deleteConversation(id);
-          }}
-          onRename={(id, title) => {
-            void renameConversation(id, title);
-          }}
-        />
-
-        <main className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-          {children}
-        </main>
-      </div>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden p-2 md:p-3">
+      <main className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        {children}
+      </main>
     </div>
   );
 }
